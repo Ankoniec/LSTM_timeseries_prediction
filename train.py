@@ -93,23 +93,21 @@ train_predict = lstm(dataX)
 
 data_predict = train_predict.data.numpy()
 data_observed = dataY.data.numpy()
-
 data_predict = sc.inverse_transform(data_predict)
 data_observed= sc.inverse_transform(data_observed)
 
 fig2, ax2 = plt.subplots(figsize=(20,10))
 
 ax2.axvline(x=N_train, c='r', linestyle='--')
-
 ax2.plot(data_observed, label="Zebrane dane")
 ax2.plot(data_predict, label="Model")
-#ax.set_xlim([1200,1500])
+#ax.set_xlim([N_train,len(x)])
 ax2.legend()
 
 
-print(f"Mean absolute error: {mae(data_observed,data_predict)}")
-print(f"Mean squared error: {mse(data_observed,data_predict)}")
-print(f"Root mean squared error: {mse(data_observed,data_predict,squared=False)}")
-print(f"Model standard deviation: {np.std(data_predict)}")
-print(f"Observed data standard deviation: {np.std(data_observed)}")
-print(f"R2 score: {r2(data_observed,data_predict)}")
+print(f"Mean absolute error: {mae(data_observed[N_train:],data_predict[N_train:])}")
+print(f"Mean squared error: {mse(data_observed[N_train:],data_predict[N_train:])}")
+print(f"Root mean squared error: {mse(data_observed[N_train:],data_predict[N_train:],squared=False)}")
+print(f"Model standard deviation: {np.std(data_predict[N_train:])}")
+print(f"Observed data standard deviation: {np.std(data_observed[N_train:])}")
+print(f"R2 score: {r2(data_observed[N_train:],data_predict[N_train:])}")
