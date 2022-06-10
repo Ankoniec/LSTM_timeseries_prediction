@@ -1,5 +1,3 @@
-import requests
-import datetime
 import pandas as pd
 
     
