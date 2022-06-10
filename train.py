@@ -50,8 +50,8 @@ testX = Variable(torch.Tensor(np.array(X_test)))
 testY = Variable(torch.Tensor(np.array(y_test)))
 
 
-num_epochs = 10000
-learning_rate = 0.01
+NUM_EPOCHS = 10000
+LEARNING_RATE = 0.01
 
 num_classes = 1
 input_size = 1
@@ -61,4 +61,28 @@ num_layers = 1
 lstm = LSTM(num_classes, input_size, hidden_size, num_layers, seq_length)
 
 criterion = torch.nn.MSELoss()
-optimizer = torch.optim.Adam(lstm.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adam(lstm.parameters(), lr=LEARNING_RATE)
+
+loss_val = []
+epochs = []
+
+for epoch in range(NUM_EPOCHS):
+    outputs = lstm(trainX)
+    optimizer.zero_grad()
+
+    loss = criterion(outputs, trainY)
+    loss.backward()
+    
+    optimizer.step()
+    if epoch % 100 == 0:
+        print("Epoch: %d, loss: %1.5f" % (epoch, loss.item()))
+        loss_val.append(loss.item())
+        epochs.append(epoch)
+
+
+fig1, ax1 = plt.subplots(figsize=(12,8))
+ax1.plot(epochs, loss_val)
+ax1.xlabel("epoch")
+ax1.ylabel("loss")
+fig1.show()
+#fig1.savefig("loss_function.jpg")
