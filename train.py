@@ -53,12 +53,12 @@ testY = Variable(torch.Tensor(np.array(y_test)))
 NUM_EPOCHS = 10000
 LEARNING_RATE = 0.01
 
-num_classes = 1
-input_size = 1
-hidden_size = 7
-num_layers = 1
+NUM_CLASSES = 1
+INPUT_SIZE = 1
+HIDDEN_SIZE = 7
+NUM_LAYERS = 1
 
-lstm = LSTM(num_classes, input_size, hidden_size, num_layers, seq_length)
+lstm = LSTM(NUM_CLASSES, INPUT_SIZE, HIDDEN_SIZE, NUM_LAYERS, seq_length)
 
 criterion = torch.nn.MSELoss()
 optimizer = torch.optim.Adam(lstm.parameters(), lr=LEARNING_RATE)
@@ -86,3 +86,30 @@ ax1.xlabel("epoch")
 ax1.ylabel("loss")
 fig1.show()
 #fig1.savefig("loss_function.jpg")
+
+
+lstm.eval()
+train_predict = lstm(dataX)
+
+data_predict = train_predict.data.numpy()
+data_observed = dataY.data.numpy()
+
+data_predict = sc.inverse_transform(data_predict)
+data_observed= sc.inverse_transform(data_observed)
+
+fig2, ax2 = plt.subplots(figsize=(20,10))
+
+ax2.axvline(x=N_train, c='r', linestyle='--')
+
+ax2.plot(data_observed, label="Zebrane dane")
+ax2.plot(data_predict, label="Model")
+#ax.set_xlim([1200,1500])
+ax2.legend()
+
+
+print(f"Mean absolute error: {mae(data_observed,data_predict)}")
+print(f"Mean squared error: {mse(data_observed,data_predict)}")
+print(f"Root mean squared error: {mse(data_observed,data_predict,squared=False)}")
+print(f"Model standard deviation: {np.std(data_predict)}")
+print(f"Observed data standard deviation: {np.std(data_observed)}")
+print(f"R2 score: {r2(data_observed,data_predict)}")

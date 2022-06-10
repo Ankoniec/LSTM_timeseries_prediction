@@ -60,6 +60,7 @@ class TaylorDiagram(object):
         t = np.linspace(0, (np.pi / 2.0))
         r = np.zeros_like(t) + self.STD
         self.ax.plot(t, r, 'k--', label='_')
+        self.ax.show()
 
         # Collect sample points for latter use (e.g. legend)
         self.samplePoints = [l]
