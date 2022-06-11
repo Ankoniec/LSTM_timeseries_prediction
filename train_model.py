@@ -7,7 +7,7 @@ from sklearn.metrics import mean_squared_error as mse
 from sklearn.metrics import r2_score as r2
 
 from dataset_manager import MeteoDataset, create_sequences
-from plots_manager import TaylorDiagram, PlotData
+from plots_manager import PlotData, plot_taylor_diagram
 from train_helper import train_model
 from model import LSTM
 
@@ -82,3 +82,11 @@ print(f"Observed data standard deviation: {np.std(data_observed[N_train:])}")
 print(f"R2 score: {r2(data_observed[N_train:],data_predict[N_train:])}")
 
 # TAYLOR DIAGRAM
+
+STD = np.std(data_observed[N_train:])
+
+std_dev = [np.std(data_predict[N_train:])]
+r_score = [r2(data_observed[N_train:],data_predict[N_train:])]
+label = ["1"]
+
+plot_taylor_diagram(STD,std_dev,r_score,label,"first")

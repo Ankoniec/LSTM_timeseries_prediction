@@ -31,8 +31,6 @@ class PlotData(object):
             fig.savefig(file+".jpg")
 
 
-
-
 class TaylorDiagram(object):
   
     def __init__(self, STD ,fig=None, rect=111, label='_'):
@@ -88,7 +86,6 @@ class TaylorDiagram(object):
         t = np.linspace(0, (np.pi / 2.0))
         r = np.zeros_like(t) + self.STD
         self.ax.plot(t, r, 'k--', label='_')
-        self.ax.show()
 
         # Collect sample points for latter use (e.g. legend)
         self.samplePoints = [l]
@@ -105,3 +102,19 @@ class TaylorDiagram(object):
         RMSE=np.sqrt(np.power(self.STD, 2) + np.power(rs, 2) - (2.0 * self.STD * rs  *np.cos(ts)))
         contours = self.ax.contour(ts, rs, RMSE, levels, **kwargs)
         return contours
+
+
+def plot_taylor_diagram(obsSTD, stddev, rscore, labels, fname):
+    fig=plt.figure(figsize=(8,8))
+    dia=TaylorDiagram(obsSTD, fig=fig, rect=111, label='ref')
+    plt.clabel(dia.add_contours(colors='#808080'), inline=1, fontsize=10)
+    srlc = zip(stddev, rscore, labels)
+    
+    for i in srlc:
+        dia.add_sample(i[0], i[1], label=i[2], marker='o', mfc = 'none', mew=1.6)
+
+    spl = [p.get_label() for p in dia.samplePoints]
+    fig.legend(dia.samplePoints, spl, numpoints=1, prop=dict(size='small'), loc=[0.7,0.3])
+    plt.show()
+    input("Press enter...")
+    fig.savefig(fname+".jpg")
