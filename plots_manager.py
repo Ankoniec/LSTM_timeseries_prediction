@@ -11,24 +11,25 @@ class PlotData(object):
         self.predicted_data = predicted_data
         self.N_train = N_train
     
-    def plot_all(self):
+    def plot_all(self, file:str = None):
         fig, ax = plt.subplots(figsize=(20,10))
         ax.axvline(x=self.N_train, c='r', linestyle='--')
         ax.plot(self.observed_data, label="Zebrane dane")
         ax.plot(self.predicted_data, label="Model")
-        #ax.set_xlim([N_train,len(x)])
         ax.legend()
-        fig.show()
-        input("Press enter...")
+        if file:
+            fig.savefig(file+".jpg")
 
-    def plot_test_data(self):
+
+    def plot_test_data(self, file:str = None):
         fig, ax = plt.subplots(figsize=(20,10))
         ax.plot(self.observed_data, label="Zebrane dane")
         ax.plot(self.predicted_data, label="Model")
         ax.set_xlim([self.N_train,len(self.observed_data)])
         ax.legend()
-        fig.show()
-        input("Press enter...")
+        if file:
+            fig.savefig(file+".jpg")
+
 
 
 
