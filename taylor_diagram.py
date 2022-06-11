@@ -5,6 +5,33 @@ import mpl_toolkits.axisartist.grid_finder as gf
 import mpl_toolkits.axisartist.floating_axes as fa
 
 
+class PlotData(object):
+    def __init__(self, observed_data, predicted_data, N_train):
+        self.observed_data = observed_data
+        self.predicted_data = predicted_data
+        self.N_train = N_train
+    
+    def plot_all(self):
+        fig, ax = plt.subplots(figsize=(20,10))
+        ax.axvline(x=self.N_train, c='r', linestyle='--')
+        ax.plot(self.observed_data, label="Zebrane dane")
+        ax.plot(self.predicted_data, label="Model")
+        #ax.set_xlim([N_train,len(x)])
+        ax.legend()
+        fig.show()
+        input("Press enter...")
+
+    def plot_test_data(self):
+        fig, ax = plt.subplots(figsize=(20,10))
+        ax.plot(self.observed_data, label="Zebrane dane")
+        ax.plot(self.predicted_data, label="Model")
+        ax.set_xlim([self.N_train,len(self.observed_data)])
+        ax.legend()
+        fig.show()
+        input("Press enter...")
+
+
+
 class TaylorDiagram(object):
   
     def __init__(self, STD ,fig=None, rect=111, label='_'):
