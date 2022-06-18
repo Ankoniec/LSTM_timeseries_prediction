@@ -21,16 +21,16 @@ class LSTM(nn.Module):
             batch_first=True
         )
         
-        self.fc = nn.Linear(hidden_size, num_classes)
+        self.linear = nn.Linear(hidden_size, num_classes)
 
 
     def forward(self, x):
         h_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
         c_0 = Variable(torch.zeros(self.num_layers, x.size(0), self.hidden_size))
         
-        _, (h_out, _) = self.lstm(x, (h_0, c_0))
+        _, (h_out, c_out) = self.lstm(x, (h_0, c_0))
         h_out = h_out.view(-1, self.hidden_size)
         
-        output = self.fc(h_out)
+        output = self.linear(h_out)
         
         return output
