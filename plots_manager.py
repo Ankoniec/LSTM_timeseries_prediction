@@ -119,7 +119,4 @@ def plot_taylor_diagram(obsSTD, stddev, rscore, labels, fname):
 
     spl = [p.get_label() for p in dia.samplePoints]
     fig.legend(dia.samplePoints, spl, numpoints=1, prop=dict(size='small'), loc=[0.7,0.7])
-
-    plt.show()
-    input("Press enter...")
     fig.savefig(fname+".jpg")
