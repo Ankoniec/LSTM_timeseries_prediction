@@ -28,5 +28,11 @@ def train_model(num_epochs: int, model: object,
         ax1.plot(epochs, loss_val)
         ax1.set_xlabel("epoch")
         ax1.set_ylabel("loss")
+<<<<<<< HEAD
         fig1.savefig("loss_" + fig_name + ".jpg")
+=======
+        fig1.show()
+        input("Press Enter...")
+        fig1.savefig(fig_name + ".jpg")
+>>>>>>> 3a3385426f5314dfc7f66420212db4c71a8bb3b1
 

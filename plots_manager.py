@@ -16,11 +16,17 @@ class PlotData(object):
         ax.axvline(x=self.N_train, c='r', linestyle='--')
         ax.plot(self.observed_data, label="Zebrane dane")
         ax.plot(self.predicted_data, label="Model")
+<<<<<<< HEAD:plots_manager.py
         ax.set_xlabel("Numer pomiaru")
         ax.set_ylabel("Średnie stężenie PM10 [μg/m3]")
         ax.legend()
         if file:
             fig.savefig("all_"+file+".jpg")
+=======
+        ax.legend()
+        if file:
+            fig.savefig(file+".jpg")
+>>>>>>> 3a3385426f5314dfc7f66420212db4c71a8bb3b1:taylor_diagram.py
 
 
     def plot_test_data(self, file:str = None):
@@ -28,11 +34,17 @@ class PlotData(object):
         ax.plot(self.observed_data, label="Zebrane dane")
         ax.plot(self.predicted_data, label="Model")
         ax.set_xlim([self.N_train,len(self.observed_data)])
+<<<<<<< HEAD:plots_manager.py
         ax.set_xlabel("Numer pomiaru")
         ax.set_ylabel("Średnie stężenie PM10 [μg/m3]")
         ax.legend()
         if file:
             fig.savefig("observed_"+file+".jpg")
+=======
+        ax.legend()
+        if file:
+            fig.savefig(file+".jpg")
+>>>>>>> 3a3385426f5314dfc7f66420212db4c71a8bb3b1:taylor_diagram.py
 
 
 class TaylorDiagram(object):
@@ -118,7 +130,11 @@ def plot_taylor_diagram(obsSTD, stddev, rscore, labels, fname):
         dia.add_sample(i[0], i[1], label=i[2], marker='o', mfc = 'none', mew=1.6)
 
     spl = [p.get_label() for p in dia.samplePoints]
+<<<<<<< HEAD:plots_manager.py
     fig.legend(dia.samplePoints, spl, numpoints=1, prop=dict(size='small'), loc=[0.7,0.7])
+=======
+    fig.legend(dia.samplePoints, spl, numpoints=1, prop=dict(size='small'), loc=[0.7,0.3])
+>>>>>>> 3a3385426f5314dfc7f66420212db4c71a8bb3b1:taylor_diagram.py
     plt.show()
     input("Press enter...")
     fig.savefig(fname+".jpg")
